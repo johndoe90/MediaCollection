@@ -1,0 +1,301 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>TimeTest</groupId>
+  <artifactId>TimeTest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <properties>
+  	<spring.version>3.2.4.RELEASE</spring.version>
+  	<neo4j.version>1.9.4</neo4j.version>
+  	<spring-data-neo4j.version>2.3.2.RELEASE</spring-data-neo4j.version>
+  	<jsoup.version>1.7.2</jsoup.version>
+  	<slf4j.version>1.7.5</slf4j.version>
+  	<aspectj.version>1.7.3</aspectj.version>
+  	<hibernate.version>4.2.7.Final</hibernate.version>
+  </properties>
+  <dependencies>
+  
+  	<!-- Spring -->
+  	
+  	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>2.2.2</version>
+	</dependency>   
+	
+	<!-- AspectJ -->
+		
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>${aspectj.version}</version>
+	</dependency>	
+	
+	<!-- @Inject -->
+		
+	<dependency>
+		<groupId>javax.inject</groupId>
+		<artifactId>javax.inject</artifactId>
+		<version>1</version>
+	</dependency>
+	
+	<!-- Neo4j -->
+	
+	<dependency>
+	   <groupId>org.neo4j</groupId>
+	   <artifactId>neo4j</artifactId>
+	   <version>${neo4j.version}</version>
+  	</dependency>
+  	
+  	<dependency>
+		<groupId>org.neo4j</groupId>
+		<artifactId>neo4j-cypher</artifactId>
+		<version>${neo4j.version}</version>
+	</dependency> 
+  	
+  	<dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-neo4j-aspects</artifactId>
+        <version>${spring-data-neo4j.version}</version>
+        <exclusions>
+			<exclusion>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+			</exclusion>
+		</exclusions>
+    </dependency>
+  
+  	<!-- HTML Parser -->
+  	
+	<dependency>
+		<groupId>org.jsoup</groupId>
+		<artifactId>jsoup</artifactId>
+		<version>${jsoup.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>edu.uci.ics</groupId>
+		<artifactId>crawler4j</artifactId>
+		<version>3.5</version>
+	</dependency>
+	
+	<!-- Hibernate -->
+	
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+            
+	
+	<dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>1.4.2.RELEASE</version>
+    </dependency>
+	
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.27</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>1.4</version>
+	</dependency>
+            
+            
+	<!-- Validation -->
+	
+	<dependency>
+		<groupId>org.hibernate.javax.persistence</groupId>
+		<artifactId>hibernate-jpa-2.0-api</artifactId>
+		<version>1.0.0.Final</version>
+	</dependency>
+		
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-validator</artifactId>
+		<version>4.3.1.Final</version>
+	</dependency>   
+	
+	<!-- Logging -->
+	
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${slf4j.version}</version>
+	</dependency>
+		
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>${slf4j.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+		
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>${slf4j.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+		
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
+		<scope>runtime</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	</dependency>  
+		
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    
+    <plugins>
+     <!--  <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>-->
+      
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			
+	        <plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-eclipse-plugin</artifactId>
+	            <version>2.9</version>
+	            <configuration>
+	            	<ajdtVersion>1.5</ajdtVersion>
+	                <additionalProjectnatures>
+	                	<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
+	                    <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+	                    <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+	                </additionalProjectnatures>
+	                <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+	            </configuration>
+	        </plugin>
+	        
+ 
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
+				<configuration>
+					<useFile>true</useFile>
+					<includes>
+						<include>**/*Tests.java</include>
+						<include>**/*Test.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+					</excludes>
+					<junitArtifactName>junit:junit</junitArtifactName>
+				</configuration>
+			</plugin> -->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.4</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+				
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outxml>true</outxml>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-aspects</artifactId>
+						</aspectLibrary>
+						<aspectLibrary>
+							<groupId>org.springframework.data</groupId>
+							<artifactId>spring-data-neo4j-aspects</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+
+    
+  </build>
+</project>
