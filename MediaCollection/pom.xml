@@ -67,32 +67,6 @@
 		<artifactId>javax.inject</artifactId>
 		<version>1</version>
 	</dependency>
-	
-	<!-- Neo4j -->
-	
-	<dependency>
-	   <groupId>org.neo4j</groupId>
-	   <artifactId>neo4j</artifactId>
-	   <version>${neo4j.version}</version>
-  	</dependency>
-  	
-  	<dependency>
-		<groupId>org.neo4j</groupId>
-		<artifactId>neo4j-cypher</artifactId>
-		<version>${neo4j.version}</version>
-	</dependency> 
-  	
-  	<dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-neo4j-aspects</artifactId>
-        <version>${spring-data-neo4j.version}</version>
-        <exclusions>
-			<exclusion>
-				<groupId>org.hibernate.javax.persistence</groupId>
-				<artifactId>hibernate-jpa-2.0-api</artifactId>
-			</exclusion>
-		</exclusions>
-    </dependency>
   
   	<!-- HTML Parser -->
   	
@@ -190,112 +164,66 @@
 		<artifactId>commons-collections</artifactId>
 		<version>3.2.1</version>
 	</dependency>  
+	
+	<!-- Jackson -->
+	
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-annotations</artifactId>
+		<version>2.2.3</version>
+	</dependency>
+	
+	<dependency>
+	  	<groupId>com.fasterxml.jackson.core</groupId>
+	  	<artifactId>jackson-core</artifactId>
+	  	<version>2.2.3</version>
+	</dependency>
+	
+	<dependency>
+	  	<groupId>com.fasterxml.jackson.core</groupId>
+	  	<artifactId>jackson-databind</artifactId>
+	  	<version>2.2.3</version>
+	</dependency>
 		
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    
-    <plugins>
-     <!--  <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>-->
-      
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			
-	        <plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-eclipse-plugin</artifactId>
-	            <version>2.9</version>
-	            <configuration>
-	            	<ajdtVersion>1.5</ajdtVersion>
-	                <additionalProjectnatures>
-	                	<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-	                    <projectnature>org.eclipse.jdt.core.javanature</projectnature>
-	                    <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-	                </additionalProjectnatures>
-	                <additionalBuildcommands>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
                         <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
                     </additionalBuildcommands>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
-	            </configuration>
-	        </plugin>
-	        
- 
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
-				<configuration>
-					<useFile>true</useFile>
-					<includes>
-						<include>**/*Tests.java</include>
-						<include>**/*Test.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/Abstract*.java</exclude>
-					</excludes>
-					<junitArtifactName>junit:junit</junitArtifactName>
-				</configuration>
-			</plugin> -->
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.4</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-				</dependencies>
-				
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>test-compile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outxml>true</outxml>
-					<aspectLibraries>
-						<aspectLibrary>
-							<groupId>org.springframework</groupId>
-							<artifactId>spring-aspects</artifactId>
-						</aspectLibrary>
-						<aspectLibrary>
-							<groupId>org.springframework.data</groupId>
-							<artifactId>spring-data-neo4j-aspects</artifactId>
-						</aspectLibrary>
-					</aspectLibraries>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
+                </configuration>
+            </plugin>
 			
-		</plugins>
-
-    
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>    
   </build>
 </project>
