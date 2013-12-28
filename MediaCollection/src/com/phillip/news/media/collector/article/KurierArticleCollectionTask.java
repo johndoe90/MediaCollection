@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -11,12 +12,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.phillip.news.config.FilesConfig;
-import com.phillip.news.domain.Media;
-import com.phillip.news.domain.MediaProvider;
 import com.phillip.news.media.AbstractArticleCollector;
 import com.phillip.news.media.mapper.KurierMediaMapper;
 import com.phillip.news.service.MediaService;
 import com.phillip.news.utils.ImageUtils;
+import com.phillip.news.domain.Media;
+import com.phillip.news.domain.MediaProvider;
 
 public class KurierArticleCollectionTask extends AbstractArticleCollector{
 	
@@ -47,21 +48,12 @@ public class KurierArticleCollectionTask extends AbstractArticleCollector{
 	protected void visit(Document document) {
 		Media media = mediaMapper.map(document);
 		if(media != null && !mediaService.exists(media.getUrl())){
-			try{
-				URL url = new URL(media.getImage());
-				BufferedImage original = ImageIO.read(url);
-				BufferedImage resized = ImageUtils.fitToFrame(original, 250, 250);		
-				String random = ImageUtils.createRandomFileName(15);
-				String fileName;
-				do { 
-					fileName = FilesConfig.TOMCAT_RESOURCE_LOCATION + "/" + random + ".jpg";
-				}while(new File(fileName).exists());
-				if(ImageIO.write(resized, "jpg", new File(fileName))){
-					media.setImage(FilesConfig.PREFIX + "/" + random + ".jpg");
-				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			Map<String, String> links = ImageUtils.buildImageTree(media.getImageSmall());
+			media.setImageSmall(links.get("small") != null ? links.get("small") : media.getImageSmall());
+			media.setImageMedium(links.get("medium"));
+			media.setImageLarge(links.get("large"));
+			media.setImageWidth(links.get("width") != null ? Integer.parseInt(links.get("width")) : null);
+			media.setImageHeight(links.get("height") != null ? Integer.parseInt(links.get("height")) : null);
 			
 			mediaService.persist(media);
 		}

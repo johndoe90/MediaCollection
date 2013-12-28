@@ -88,7 +88,7 @@ public abstract class AbstractMediaMapper implements MediaMapper{
 		if(isValidMedia(document)){
 			Media media = new Media(mediaProvider, getCategory(document), getDate(document), getTitle(document), getType(document), getUrl(document), getKeywords(document));
 			media.setDescription(getDescription(document));
-			media.setImage(getImage(document));
+			media.setImageSmall(getImage(document));
 			media.setAudio(getAudio(document));
 			media.setVideo(getVideo(document));
 			

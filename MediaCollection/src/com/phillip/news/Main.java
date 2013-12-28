@@ -8,11 +8,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.phillip.news.config.ApplicationContextConfig;
-import com.phillip.news.domain.Category;
 import com.phillip.news.media.MediaCollectionTask;
 import com.phillip.news.media.MediaCollector;
 import com.phillip.news.media.collector.MediaCollectors;
 import com.phillip.news.service.CategoryService;
+import com.phillip.news.domain.Category;
 
 public class Main {
 	
@@ -36,7 +36,6 @@ public class Main {
 	public static void main(String[] args) throws Exception{
 		ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
 		MediaCollectors mediaCollectors = context.getBean(MediaCollectors.class);
-		
 		ExecutorService executor = startExecution(mediaCollectors);
 		
 		while(true){

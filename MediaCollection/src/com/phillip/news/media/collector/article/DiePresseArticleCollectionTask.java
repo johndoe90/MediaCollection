@@ -1,63 +1,55 @@
 package com.phillip.news.media.collector.article;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.phillip.news.domain.Media;
 import com.phillip.news.media.AbstractArticleCollector;
+import com.phillip.news.media.mapper.DiePresseMediaMapper;
+import com.phillip.news.media.mapper.KurierMediaMapper;
 import com.phillip.news.service.MediaService;
+import com.phillip.news.utils.ImageUtils;
+import com.phillip.news.domain.Media;
+import com.phillip.news.domain.MediaProvider;
 
 public class DiePresseArticleCollectionTask extends AbstractArticleCollector{
-
 	private final MediaService mediaService;
+	private final DiePresseMediaMapper mediaMapper;
 	
-	public DiePresseArticleCollectionTask(MediaService mediaService){
-		this(mediaService,
-			 new ArticleCollectionTaskConfiguration()
-				.setMaxLevel(1)
-				.setPause(1000)
-				.setSeeds(Arrays.asList("http://diepresse.com/home/politik/innenpolitik")));
-	}
-	public DiePresseArticleCollectionTask(MediaService mediaService, ArticleCollectionTaskConfiguration config) {
+	public DiePresseArticleCollectionTask(ArticleCollectionTaskConfiguration config, MediaProvider mediaProvider, MediaService mediaService) {
 		super(config);
 		this.mediaService = mediaService;
+		this.mediaMapper = new DiePresseMediaMapper(mediaProvider);
 	}
 
 	@Override
 	protected boolean shouldVisit(String URL) {
 		if(getConfig().getFilters().matcher(URL).matches())
 			return false;
-		
-		for(String domain : getConfig().getSeeds()){
-			if(URL.startsWith(domain) && !URL.contains("#"))
+
+		for(String seed : getConfig().getSeeds()){
+			if(URL.startsWith(seed) && !URL.endsWith("/print.do") && !URL.contains("#"))
 				return true;
 		}
 		
 		return false;
 	}
-	
-	@Override
-	protected void visit(Document doc) {
-		/*Element metaUrl = doc.select("meta[property=og:url]").first();
-		Element metaType = doc.select("meta[property=og:type]").first();
-		Element metaDesc = doc.select("meta[property=og:description]").first();
-		Element metaTitle = doc.select("meta[property=og:title]").first();
-		Element metaImage = doc.select("meta[property=og:image]").first();
-		
-		if(metaUrl != null && metaType != null && metaDesc != null && metaTitle != null && metaImage != null){
-			String url = metaUrl.attr("content");
-			String title = metaTitle.attr("content");
-			String desc = metaDesc.attr("content");
-			String type = metaType.attr("content").toLowerCase();
-			String image = metaImage.attr("content");
-			
-			if(!mediaService.mediaExists(url)){
-				Media media = new Media(url, type, title, desc, image, "keywords");
-				mediaService.persist(media);
-			}
-		}*/
-	}
 
+	//potentiell in abstract article collector geben
+	@Override
+	protected void visit(Document document) {
+		Media media = mediaMapper.map(document);
+		if(media != null && !mediaService.exists(media.getUrl())){
+			Map<String, String> links = ImageUtils.buildImageTree(media.getImageSmall());
+			media.setImageSmall(links.get("small") != null ? links.get("small") : media.getImageSmall());
+			media.setImageMedium(links.get("medium"));
+			media.setImageLarge(links.get("large"));
+			media.setImageWidth(links.get("width") != null ? Integer.parseInt(links.get("width")) : null);
+			media.setImageHeight(links.get("height") != null ? Integer.parseInt(links.get("height")) : null);
+			
+			mediaService.persist(media);
+		}
+	}
 }

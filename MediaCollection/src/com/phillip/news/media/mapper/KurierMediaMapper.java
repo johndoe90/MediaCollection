@@ -5,10 +5,10 @@ import java.util.Locale;
 
 import org.jsoup.nodes.Document;
 
+import com.phillip.news.media.AbstractMediaMapper;
 import com.phillip.news.domain.Categories;
 import com.phillip.news.domain.Category;
 import com.phillip.news.domain.MediaProvider;
-import com.phillip.news.media.AbstractMediaMapper;
 
 public class KurierMediaMapper extends AbstractMediaMapper{
 	
@@ -48,15 +48,15 @@ public class KurierMediaMapper extends AbstractMediaMapper{
 					case "ausland": return Categories.POLITICS_FOREIGN;
 					case "eu": return Categories.POLITICS_EU;
 					case "weltchronik": return Categories.POLITICS_WORLD;
-					default: return Categories.POLITICS_OTHER;
+					default: return Categories.POLITICS;
 				}
 			case "sport":
 				switch(subCategory){
 					case "fussball": return Categories.SPORTS_FOOTBALL;
 					case "wintersport": return Categories.SPORTS_WINTERSPORTS;
-					case "sportmix": return Categories.SPORTS_OTHER;
+					case "sportmix": return Categories.SPORTS;
 					case "motorsport": return Categories.SPORTS_MOTORSPORTS;
-					default: return Categories.SPORTS_OTHER;
+					default: return Categories.SPORTS;
 				}
 			default:
 				return Categories.OTHER;
